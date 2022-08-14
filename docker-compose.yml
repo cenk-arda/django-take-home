@@ -31,3 +31,22 @@ services:
      POSTGRES_HOST: 'postgres'
     ports:
       - 5432:5432
+
+  redis:
+    image: 'redis:alpine'
+  celery:
+    restart: always
+    build:
+      context: ./license_portal
+    command: celery -A config.celery worker -l info
+    volumes:
+      - ./license_portal:/app
+    environment:
+      POSTGRES_USER: 'admin'
+      POSTGRES_PASSWORD: 'dummy_password'
+      POSTGRES_DB: 'licenses'
+      POSTGRES_HOST: 'postgres'
+    depends_on:
+      - postgres
+      - redis
+      - license-server
