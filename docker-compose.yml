@@ -1,3 +1,5 @@
+version: "3"
+
 services:
   license-server:
     build:
@@ -6,10 +8,26 @@ services:
       - postgres
     volumes:
       - ./license_portal:/app
+    command: > #     wait 2 seconds for postgres to start
+      sh -c "sleep 2 &&
+      python3 manage.py migrate &&
+      python3 manage.py runserver 0.0.0.0:8000"
+    environment:
+     POSTGRES_USER: 'admin'
+     POSTGRES_PASSWORD: 'dummy_password'
+     POSTGRES_DB: 'licenses'
+     POSTGRES_HOST: 'postgres'
+    depends_on:
+      - postgres
+    ports:
+      - 8000:8000
 
   postgres:
     image: 'postgres:13'
     environment:
-     POSTGRES_USER: 'licenses'
-     POSTGRES_PASSWORD: 'licenses'
+     POSTGRES_USER: 'admin'
+     POSTGRES_PASSWORD: 'dummy_password'
      POSTGRES_DB: 'licenses'
+     POSTGRES_HOST: 'postgres'
+    ports:
+      - 5432:5432
