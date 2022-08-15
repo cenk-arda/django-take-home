@@ -6,6 +6,7 @@ from datetime import timedelta, datetime
 from typing import Tuple, List
 
 from django.contrib.auth.models import User
+from django.core.mail import EmailMessage
 from django.db import models
 
 LICENSE_EXPIRATION_DELTA = timedelta(days=90)
@@ -13,9 +14,10 @@ LICENSE_EXPIRATION_DELTA = timedelta(days=90)
 
 class ChoiceEnum(enum.Enum):
     """Enum for choices in a choices field"""
+
     @classmethod
-    def get_choices(cls) -> List[Tuple[str, int]]:
-        return [(a.name, a.value) for a in cls]
+    def get_choices(cls) -> List[Tuple[int, str]]:
+        return [(a.value, a.name) for a in cls]
 
 
 class Package(ChoiceEnum):
@@ -55,3 +57,16 @@ class Client(models.Model):
     poc_contact_email = models.EmailField()
 
     admin_poc = models.ForeignKey(User, limit_choices_to={'is_staff': True}, on_delete=models.CASCADE)
+
+
+class Notification(models.Model):
+    """ Data model for notifications sent
+    """
+
+    # persist the notification in the database
+    client = models.ForeignKey(Client, on_delete=models.PROTECT)
+    mail_body = models.TextField()
+    sent_datetime = models.DateTimeField(null=True)
+    sent = models.BooleanField(default=False)
+
+

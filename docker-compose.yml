@@ -10,6 +10,7 @@ services:
       - ./license_portal:/app
     command: > #     wait 2 seconds for postgres to start
       sh -c "sleep 2 &&
+      python3 manage.py makemigrations licenses &&
       python3 manage.py migrate &&
       python3 manage.py runserver 0.0.0.0:8000"
     environment:

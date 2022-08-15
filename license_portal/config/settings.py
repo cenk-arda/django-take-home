@@ -129,6 +129,16 @@ USE_TZ = True
 STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD="django.db.models.BigAutoField"
 
+# EMAIL_BACKEND = 'django.core.mail.backends.locmem.EmailBackend'
+
+"""below is for smtp settings"""
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'effugium6@gmail.com'
+EMAIL_HOST_PASSWORD = 'frfjmjmwdfmwfrjz'
+
 CELERY_BROKER_URL = 'redis://redis:6379'
 CELERY_RESULT_BACKEND = 'django-db'
 CELERY_ACCEPT_CONTENT = ['application/json']
