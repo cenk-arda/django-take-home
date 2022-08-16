@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+
+<h2>Notifications Summary</h2>
+
+<table>
+  <tr>
+
+    <th>Client Name</th>
+    <th>Client POC</th>
+    <th>Client POC email</th>
+    <th>Admin POC email</th>
+    <th>Notification Sent to</th>
+    <th>Notification Sent at</th>
+
+  </tr>
+  {% for notification in notifications reversed %}
+  <tr>
+    <td>{{notification.client.client_name}}</td>
+    <td>{{notification.client.poc_contact_name}}</td>
+    <td> <a href="mailto:{{notification.client.poc_contact_email}}">{{notification.client.poc_contact_email}}</a></td>
+    <td> <a href="mailto:{{notification.client.admin_poc.email}}">{{notification.client.admin_poc.email}}</a></td>
+    <td> <a href="mailto:{{notification.sent_to}}">{{notification.sent_to}}</a></td>
+
+    <td>{{notification.sent_datetime}}</td>
+
+  </tr>
+    {% endfor %}
+
+</table>
+
+</body>
+</html>
+
