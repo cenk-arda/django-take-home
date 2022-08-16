@@ -137,8 +137,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'effugium6@gmail.com'
-EMAIL_HOST_PASSWORD = 'frfjmjmwdfmwfrjz'
+EMAIL_HOST_USER = 'somemail@mail.co'  # put your official email address.
+EMAIL_HOST_PASSWORD = 'dummy_password'  # put the password you created from your google account for third-party apps.
 
 """Celery config"""
 CELERY_BROKER_URL = 'redis://redis:6379'
