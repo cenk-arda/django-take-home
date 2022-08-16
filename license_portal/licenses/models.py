@@ -68,5 +68,5 @@ class Notification(models.Model):
     mail_body = models.TextField()
     sent_datetime = models.DateTimeField(null=True)
     sent = models.BooleanField(default=False)
-
+    sent_to = models.EmailField(null=True)
 

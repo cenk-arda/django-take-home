@@ -25,4 +25,4 @@ class EmailNotification:
         """Send the notification using the given context"""
         template = cls.load_template()
         message_body = template.render(context=context)
-        send_mail(cls.subject, message_body, cls.from_email, recipients, fail_silently=False)
+        send_mail(subject=cls.subject, message="Message!", html_message=message_body, from_email=cls.from_email, recipient_list=recipients, fail_silently=False)
